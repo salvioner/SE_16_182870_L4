@@ -1,5 +1,5 @@
 MAX_ID = 10000;
-form = document.getElementById('form');
+form = document.forms[0];
 
 /**
  * Sets the format for the ID which identifies the employees.
@@ -28,20 +28,21 @@ function setIDFormat() {
  */
 function showForm() {
   form.hidden = false;
-  setTextById('show-form', 'Hide form');
+  setTextById('show-form', 'Cancel');
   document.getElementById('show-form').setAttribute('onmousedown', 'hideForm()');
 }
 
 /**
- *  Hides the current form, but does not delete its content.
+ *  Hides the current form and deletes its content.
  */
 function hideForm() {
-  form.hidden = "true";
-  setTextById('show-form', 'Show form');
+  form.hidden = true;
+  form.reset();
+  setTextById('show-form', 'New form');
   document.getElementById("show-form").setAttribute('onmousedown', 'showForm()')
 }
 
 function send(mode) {
-  form.getElementById('mode').value = mode;
+  document.getElementById('mode').value = mode;
   form.submit();
 }

@@ -23,8 +23,8 @@
     <button id="show-form" onmousedown="showForm()"></button>
     <!-- form -->
     <div id="form">
-      <form action="http://localhost:1337" method='post'>
-        <input id="mode" hidden="true" value="" disabled>
+      <form action="" method='post'>
+        <input class="input-text-field" id="mode" hidden="true" value="" disabled>
         <fieldset>
           <div class="input-box" id="id-input-box">
             <legend class="instructions">
@@ -33,7 +33,7 @@
             <label>
               ID #
             </label>
-            <input id="id-input" type="integer">
+            <input class="input-text-field" id="id-input" type="text">
             <input id="search-id" type="button" value="Search ID" onmousedown="send('search')">
             <input id="delete-id" type="button" value="Delete ID" onmousedown="send('delete')">
           </div>
@@ -46,22 +46,22 @@
             <label>
               Name
             </label>
-            <input id="name-input" type="text" placeholder="Jeremy">
+            <input class="input-text-field" id="name-input" type="text" placeholder="Jeremy">
             <label>
               Cognome
             </label>
-            <input id="srname-input" type="text" placeholder="Johnson">
+            <input class="input-text-field" id="srname-input" type="text" placeholder="Johnson">
             <br>
             <label>
               Level
             </label>
-            <input id="level-input" type="text" placeholder="Advertising manager">
+            <input class="input-text-field" id="level-input" type="text" placeholder="Advertising manager">
             <label>
               Salary $
             </label>
-            <input id="salary-input" type="text" placeholder="10000">
+            <input class="input-text-field" id="salary-input" type="text" placeholder="10000">
           </div>
-          <input id="submit" type="button" value="Add New Employee" onmousedown="send('add')">
+          <input id="add-id" type="button" value="Add New Employee" onmousedown="send('add')">
         </fieldset>
       </form>
     </div>
