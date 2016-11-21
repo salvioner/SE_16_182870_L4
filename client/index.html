@@ -24,6 +24,7 @@
     <!-- form -->
     <div id="form">
       <form action="http://localhost:1337" method='post'>
+        <input id="mode" hidden="true" value="" disabled>
         <fieldset>
           <div class="input-box" id="id-input-box">
             <legend class="instructions">
@@ -33,8 +34,8 @@
               ID #
             </label>
             <input id="id-input" type="integer">
-            <input id="search-id" type="button" value="Search ID">
-            <input id="delete-id" type="button" value="Delete ID">
+            <input id="search-id" type="button" value="Search ID" onmousedown="send('search')">
+            <input id="delete-id" type="button" value="Delete ID" onmousedown="send('delete')">
           </div>
         </fieldset>
         <fieldset>
@@ -60,20 +61,22 @@
             </label>
             <input id="salary-input" type="text" placeholder="10000">
           </div>
-          <input id="submit" type="button" value="Add New Employee">
+          <input id="submit" type="button" value="Add New Employee" onmousedown="send('add')">
         </fieldset>
       </form>
     </div>
     <!-- end form -->
+    <hr>
     <p class="copyright">
-      <hr>
+      This work is licensed under a<br><br>
       <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">
         <img alt="Creative Commons License" style="border-width:0" src="https://i.creativecommons.org/l/by-nc/4.0/88x31.png" />
       </a>
       <br>
-      Copyright 2016 by Andrea Arighi - created during November 2016 for a University project.
+      <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>.
       <br>
-      This work is licensed under a <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">Creative Commons Attribution-NonCommercial 4.0 International License</a>.
+      <br>
+      Copyright 2016 by Andrea Arighi - created during November 2016 for a University project.
     </p>
     <!-- scripts -->
     <script src="load.js"></script>

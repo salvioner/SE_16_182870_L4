@@ -41,28 +41,7 @@ function hideForm() {
   document.getElementById("show-form").setAttribute('onmousedown', 'showForm()')
 }
 
-/**
- *  Reads the value from the ID field and checks if it's in bound.
- *  @return the {Integer} the value of the ID field; {null} if the value is out of bound
- */
-function readID() {
-  var id = document.getElementById('id-input');
-  if (id.value >= MAX_ID || id.value < 0) {
-    alert('ID OUT OF BOUND! Please insert a number between 0 and' + (MAX_ID - 1));
-    return null;
-  } else {
-    return parseInt(id.value);
-  }
-}
-
-function search() {
-  
-}
-
-function delete() {
-
-}
-
-function add() {
-
+function send(mode) {
+  form.getElementById('mode').value = mode;
+  form.submit();
 }
