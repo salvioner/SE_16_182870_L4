@@ -28,16 +28,17 @@ function setIDFormat() {
  */
 function showForm() {
   form.hidden = false;
-  setTextById('show-form', 'Hide form');
+  setTextById('show-form', 'Cancel');
   document.getElementById('show-form').setAttribute('onmousedown', 'hideForm()');
 }
 
 /**
- *  Hides the current form, but does not delete its content.
+ *  Hides the current form and deletes its content.
  */
 function hideForm() {
-  form.hidden = "true";
-  setTextById('show-form', 'Show form');
+  form.hidden = true;
+  form.reset();
+  setTextById('show-form', 'New form');
   document.getElementById("show-form").setAttribute('onmousedown', 'showForm()')
 }
 
