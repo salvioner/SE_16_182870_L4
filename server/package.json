@@ -1,0 +1,30 @@
+{
+  "name": "employee-server",
+  "version": "1.0.0",
+  "description": "This package sets up a server which will manage a database for collecting employee information",
+  "main": "server.js",
+  "scripts": {
+    "test": "test.js",
+    "start": "node server.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/salvioner/SE_16_182870_L4.git"
+  },
+  "keywords": [
+    "employees",
+    "management",
+    "system",
+    "database",
+    "software",
+    "engineering",
+    "unitn",
+    "2016"
+  ],
+  "author": "Andrea Arighi",
+  "license": "CC-BY-NC-4.0",
+  "bugs": {
+    "url": "https://github.com/salvioner/SE_16_182870_L4/issues"
+  },
+  "homepage": "https://github.com/salvioner/SE_16_182870_L4#readme"
+}
