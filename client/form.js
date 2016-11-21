@@ -1,5 +1,5 @@
 MAX_ID = 10000;
-form = document.getElementById('form');
+form = document.forms[0];
 
 /**
  * Sets the format for the ID which identifies the employees.
@@ -42,6 +42,6 @@ function hideForm() {
 }
 
 function send(mode) {
-  form.getElementById('mode').value = mode;
+  document.getElementById('mode').value = mode;
   form.submit();
 }
