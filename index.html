@@ -1,0 +1,52 @@
+<!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
+
+<html lang="en">
+  <head>
+    <meta http-equiv="content-type" content="text/html; charset=utf-8">
+    <title>Employees</title>
+  </head>
+
+  <body>
+    <header>
+      <h1>Employees Database</h1>
+    </header>
+
+    <button id="show-form" onload="setTextById('show-form', 'New Operation')" onmousedown="showForm()"></button>
+    <!-- form -->
+    <div id="form" padding="5px" hidden="true">
+      <form>
+        <fieldset>
+          <span id="id-input-box" style="text-align:center">
+          <label>
+          ID
+          </label>
+          <input id="id-input" onload="setIDFormat()" type="text" placeholder="#ID">
+        </fieldset>
+        <fieldset>
+          <label>
+            Name
+          </label>
+          <input id="name-input" type="text" placeholder="employee name">
+          <label>
+            Cognome
+          </label>
+          <input id="srname-input" type="text" placeholder="employee surname">
+          <br>
+          <label>
+            Level
+          </label>
+          <input id="level-input" type="text" placeholder="employee level">
+          <label>
+            Salary
+          </label>
+          <input id="salary-input" type="text" placeholder="employee salary">
+        </fieldset>
+      </form>
+    </div>
+    <!-- end form -->
+    
+    <!-- scripts -->
+    <script src="load.js"></script>
+    <script src="form.js"></script>
+  </body>
+</html>
