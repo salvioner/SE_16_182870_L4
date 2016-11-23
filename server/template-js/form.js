@@ -1,4 +1,4 @@
-MAX_ID = 10000;
+MAX_ID = 21;
 form = document.forms[0];
 
 address = "http://localhost:1337"
@@ -35,11 +35,11 @@ function hideForm() {
 
 function send(mode) {
   document.getElementById('mode').setAttribute('mode', mode);
+  var f = document.getElementById('form');
   if (mode == 'search') {
-    document.getElementById('form').setAttribute("method", "get");
-
+    f.setAttribute("method", "get");
   } else {
-    document.getElementById('form').setAttribute("method", "post");
+    f.setAttribute("method", "post");
   }
   form.submit();
 }
