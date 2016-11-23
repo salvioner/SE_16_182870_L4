@@ -21,9 +21,10 @@
       This tool lets you manage your employees. Press the button below to start.
     </p>
     <br>
-    <button id="show-form" onmousedown="showForm()"></button>
+    <button id="show-form" onmousedown="showForm()">New Form</button>
+    <hr>
     <!-- form -->
-    <div id="form">
+    <div id="form" (:hidden:)>
       <form action="" method="">
         <input class="input-text-field" id="mode" hidden="true" value="" disabled>
         <fieldset>
@@ -34,7 +35,7 @@
             <label>
               ID #
             </label>
-            <input class="input-text-field" id="id-input" name="id" type="text" value=(:ID:)>
+            <input class="input-text-field" id="id-input" name="id" type="text" placeholder=(:IDrange:) value=(:ID:)>
             <input id="search-id" type="button" value="Search ID" onmousedown="send('search')">
             <input id="delete-id" type="button" value="Delete ID" onmousedown="send('delete')">
           </div>
@@ -65,9 +66,9 @@
           <input id="add-id" type="button" value="Add New Employee" onmousedown="send('add')">
         </fieldset>
       </form>
+      <br><hr>
     </div>
     <!-- end form -->
-    <hr>
     <p class="copyright">
       This work is licensed under a<br><br>
       <a rel="license" href="http://creativecommons.org/licenses/by-nc/4.0/">
