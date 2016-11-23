@@ -24,6 +24,9 @@ var MAX_ID = OPT.max_id;
 var db = require('./database/database.json');
 dbInit("./template-js/options.json");
 
+// variable is set to false after the first server request
+var firstStart = true;
+
 // POST
 app.use(bodyParser.urlencoded({ extended: false }));
 
@@ -38,58 +41,56 @@ app.set('port', (process.env.PORT || 1337));
 
 app.get('/', function(req, res) {
   // user wants to search by ID;
-  // if ID is empty, a new empty template will be returned.
+  // if ID is empty, aN empty template will be returned.
 
   // parsing request URL
   var query = url.parse(req.url, true).query
-  var id = parseInt(query.id);
+  var _ID = parseInt(query.id);
 /**/console.log("GET:\nurl = " + req.url);
-/**/console.log("id = " + id);
-  if(id == NaN || id == "") {
-    // employee not found - sending basic start page page
-    id = "";
-    bind.toFile(
-      './templates/home.tpl',       // template
-      {
-        ID: id,
-        IDrange: "0 - " + (MAX_ID - 1),
-        address: IP + ":" + PORT
-      },                          // object
-      function(data) {            // function
-/**/    console.log("using home.tpl")
-        // writing HTML header
-        res.writeHead(200, { 'Content-Type': 'text/html' });
-        // sending page data
-        res.end(data);
-      });
+/**/console.log("id = " + _ID);
 
-  } else {
-
-    var emp = search(id);
-  /**/console.log("search result: ID= " + emp.id + "\nname= " + emp.name);
-    // employee found - sending search results
-    var empFound = false;
-    var initialFunction = "'init()'"
-    var form_hidden = "'true'";
-
-    bind.toFile('./templates/search.tpl',
-      {
-        ID: emp.id,
-        name: emp.name,
-        surname: emp.surname,
-        level: emp.level,
-        salary: emp.salary
-      },
-      function(data) {
-/**/    console.log("using home.tpl")
-        // writing HTML header
-        res.writeHead(200, { 'Content-Type': 'text/html' });
-        // sending page data
-        res.end(data);
-      });
-
+  if (req.url == "/" || _ID == NaN) {
+    firstStart = true;
   }
 
+
+  var rangestring = "0 to " + (MAX_ID - 1);
+  var _IDrange = rangestring;
+  var _name;
+  var _surname;
+  var _level;
+  var _salary;
+  var _hidden = "";
+  if (firstStart) {
+    _hidden = "hidden";
+    firstStart = false;
+  }
+
+  var emp = search(_ID);
+
+  _ID = "'" + emp.id + "''";
+  _name = emp.name;
+  _surname = emp.surname;
+  _level = emp.level;
+  _salary = "'" + emp.salary + "''";
+/**/console.log("search result: ID= " + emp.id + "\nname= " + emp.name);
+
+  bind.toFile('./templates/search.tpl',
+    {
+      hidden: _hidden,
+      IDrange: _IDrange,
+      ID: _ID,
+      name: _name,
+      surname: _surname,
+      level: _level,
+      salary: _salary
+    },
+    function(data) {
+      // writing HTML header
+      res.writeHead(200, { 'Content-Type': 'text/html' });
+      // sending page data
+      res.end(data);
+    });
 });
 
 app.listen(1337, '127.0.0.1');
@@ -101,8 +102,8 @@ function empty() {
 }
 
 function dbInit(path) {
-  var fd = fs.openSync(path, 'a');
-  var nr = fs.writeSync(fd, "{ 'MAX_ID': " + MAX_ID + " }", 0, encoding='utf8');
+  var fd = fs.openSync(path, 'w');
+  var nr = fs.writeSync(fd, "{ \"MAX_ID\": " + MAX_ID + " }", 0, encoding='utf8');
   fs.close(fd);
   return nr;
 }
