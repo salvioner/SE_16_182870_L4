@@ -36,7 +36,7 @@ function hideForm() {
 function send(mode) {
   switch(mode) {
     case 'delete':
-      form.setAttribute("method", "get");
+      form.setAttribute("method", "post");
       form.setAttribute("action", "http://127.0.0.1:1337/del/");
       break;
 
