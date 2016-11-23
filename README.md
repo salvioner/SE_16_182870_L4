@@ -8,4 +8,4 @@ HOW TO TEST:
 
 2 - delete ID: Enter an existent ID and it will be removed from database. Further searches won't find the data, until another entry is added with that ID.
 
-3 - Add New Employees: to be implemented soon
+3 - Add New Employees: to be tested
