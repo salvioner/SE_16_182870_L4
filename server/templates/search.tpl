@@ -3,8 +3,8 @@
 <html lang="en">
   <head>
     <meta http-equiv="content-type" content="text/html; charset=utf-8">
-    <link rel="stylesheet" type="text/css" href="css/style.css">
-    <script type="text/javascript" src="template-js/form.js"></script>
+    <link rel="stylesheet" type="text/css" href="http://127.0.0.1:1337/css/style.css">
+    <script type="text/javascript" src="http://127.0.0.1:1337/template-js/form.js"></script>
     <title>
       Employees
     </title>

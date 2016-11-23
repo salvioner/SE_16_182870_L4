@@ -21,6 +21,7 @@ var app = express();
 // initializing database options
 var OPT = require('./database/DBOptions.json');
 var MAX_ID = OPT.max_id;
+var LOW_AV_ID = MAX_ID;     // lowest available ID
 var db = require('./database/database.json');
 dbInit("./template-js/options.json");
 
@@ -138,6 +139,63 @@ app.get('/del/', function(req, res) {
 
 });
 
+app.get('/add/', function(req, res) {
+  // adds to DB the specified object
+
+  // parsing request URL
+  var query = url.parse(req.url, true).query
+  var _ID = parseInt(query.id);
+  var _name = query.name;
+  var _surname = query.surname;
+  var _level = query.level;
+  var _salary = parseInt(query.salary);
+  var _hidden = "";
+
+  if (req.url == "/" || _ID == NaN) {
+    firstStart = true;
+  }
+
+  if (!firstStart) {
+    // adding entry
+    var obj = {
+      id: _ID,
+      name: _name,
+      surname: _surname,
+      level: _level,
+      salary: _salary
+    };
+
+    if(_ID == "") {
+      _ID = set(-1, obj);
+    } else {
+      _ID = set(_ID, obj);
+    }
+
+  } else {
+    _hidden = "hidden";
+    firstStart = false;
+  }
+
+  // preparing response
+  bind.toFile('./templates/search.tpl',
+    {
+      hidden: _hidden,
+      IDrange: IDrange(),
+      ID: _ID,
+      name: _name,
+      surname: _surname,
+      level: _level,
+      salary: _salary
+    },
+    function(data) {
+      // writing HTML header
+      res.writeHead(200, { 'Content-Type': 'text/html' });
+      // sending page data
+      res.end(data);
+    });
+
+});
+
 app.listen(1337, '127.0.0.1');
 console.log("server started");
 
@@ -177,11 +235,43 @@ function search(empID) {
 }
 
 function set(empID, obj) {
-  if(empID >= MAX_ID) {
+  var newID = empID;
 
+  if(empID < MAX_ID && empID >= 0) {
+    db[empID] = obj;
+  } else if(empID < 0) {
+    db[LOW_AV_ID] = obj;
+    newID = LOW_AV_ID
+    if (LOW_AV_ID == MAX_ID) {
+      MAX_ID ++;
+    }
+    // finding new lowest available id
+    for(i=LOW_AV_ID; i < MAX_ID; i++) {
+      if (db[i] == empty(i)) {
+        LOW_AV_ID = i;
+        i = MAX_ID
+      } else {
+        LOW_AV_ID = MAX_ID;
+      }
+    }
+  } else {
+    // ID must be sequential for this database to work
+    db[MAX_ID] = obj;
+    newID = MAX_ID;
+    MAX_ID += 1;
   }
-  db[empID] = obj
-  return search(empID);
+  // updating DB
+  var fdb = fs.openSync("./database/database.json", 'w');
+  fs.writeSync(fdb, JSON.stringify(db), encoding='utf8');
+  fs.close(fdb);
+  // updating options
+  var opts = require("./DBOptions_default.json");
+  var fop = fs.openSync("./database/DBOptions.json", 'w');
+  opts.max_id ++;
+  fs.writeSync(fop, JSON.stringify(opts), encoding='utf8');
+  fs.close(fop);
+
+  return newID;
 }
 
 
@@ -194,6 +284,10 @@ function DBdelete(id) {
   var fdb = fs.openSync("./database/database.json", 'w');
   fs.writeSync(fdb, JSON.stringify(db), encoding='utf8');
   fs.close(fdb);
+  // updating minimum available ID
+  if (id < LOW_AV_ID) {
+    LOW_AV_ID = id;
+  }
   return db[id];
 }
 
