@@ -26,7 +26,6 @@
     <!-- form -->
     <div id="form" (:hidden:)>
       <form action="" method="">
-        <input class="input-text-field" id="mode" hidden="true" value="" disabled>
         <fieldset>
           <div class="input-box" id="id-input-box">
             <legend class="instructions">
