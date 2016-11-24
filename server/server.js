@@ -204,6 +204,9 @@ app.post('/', function(req, res) {
 
     if (body && body.name != "" && body.surname != "" && body.level != "" && body.salary != "") {
       // all the fields have been set
+      if (_ID == ""){
+        _ID = -1;
+      }
       _ID = set(_ID, {
           id: _ID,
           name: _name,
