@@ -1,7 +1,5 @@
-MAX_ID = 21;
 form = document.forms[0];
 
-address = "http://localhost:1337"
 /**
  * Sets the textContent of the element #id to a predetermined string
  * @param {string} id the id of the object to edit
@@ -33,10 +31,15 @@ function hideForm() {
   document.getElementById("show-form").setAttribute('onmousedown', 'showForm()')
 }
 
+/**
+ *  Sends the form specifying the method and the address, according to
+ *  the pressed button.
+ *  @param {String} mode = {'delete', 'add', 'search'} identifies which button has been pressed
+ */
 function send(mode) {
   switch(mode) {
     case 'delete':
-      form.setAttribute("method", "get");
+      form.setAttribute("method", "post");
       form.setAttribute("action", "http://127.0.0.1:1337/del/");
       break;
 
