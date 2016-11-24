@@ -63,6 +63,7 @@ app.get('/', function(req, res) {
 
     if (firstStart) {
       // preparing empty module
+      _ID = ""
       name = "";
       surname = "";
       level = "";
@@ -192,24 +193,17 @@ app.post('/', function(req, res) {
     res.writeHead(403, { 'Content-Type': 'text/html' });
     res.end("<header><h1>403 - Forbidden</h1></header>\n\n -* Please open <a href='" + "http://127.0.0.1:1337" + "'>the main page</a> before sending this request. *-");
   } else {
-
-    var _ID;
-    var _name;
-    var _surname;
-    var _level;
-    var _salary;
-
-    /**/ console.log(req.body);
-
     var body = req.body;
 
-    if (body) {
-      _ID = body.id;
-      _name = body.name;
-      _surname = body.surname;
-      _level = body.level;
-      _salary = body.salary;
+    var _ID = body.id;
+    var _name = body.name;
+    var _surname = body.surname;
+    var _level = body.level;
+    var _salary = body.salary;
+    var _message = "";
 
+    if (body && body.name != "" && body.surname != "" && body.level != "" && body.salary != "") {
+      // all the fields have been set
       _ID = set(_ID, {
           id: _ID,
           name: _name,
@@ -218,32 +212,42 @@ app.post('/', function(req, res) {
           salary: _salary
         });
 
-        var emp = search(_ID);  // should find the newly added item
-        _ID = "'" + _ID + "'";
-        _name = emp.name;
-        _surname = emp.surname;
-        _level = emp.level;
-        _salary = "'" + emp.salary + "''";
-
-        bind.toFile('./templates/search.tpl',
-          {
-            hidden: "",
-            IDrange: IDrange(),
-            ID: _ID,
-            name: _name,
-            surname: _surname,
-            level: _level,
-            salary: _salary
-          },
-          function(data) {
-            // writing HTML header
-            res.writeHead(200, { 'Content-Type': 'text/html' });
-            // sending page data
-            res.end(data);
-          });
+      var emp = search(_ID);  // should find the newly added item
+      _ID = "'" + _ID + "'";
+      _name = emp.name;
+      _surname = emp.surname;
+      _level = emp.level;
+      _salary = "'" + emp.salary + "''";
+    } else {
+      // one or more fields are missing
+      var _message = "Please fill in the following fields:";
+      for(value in body) {
+        if (body[value] == "") {
+          _message += "<br>" + value.toString();
         }
       }
-    });
+    }
+
+    bind.toFile('./templates/search.tpl',
+      {
+        hidden: "",
+        IDrange: IDrange(),
+        ID: _ID,
+        name: _name,
+        surname: _surname,
+        level: _level,
+        salary: _salary,
+        message: _message
+      },
+      function(data) {
+        // writing HTML header
+        res.writeHead(200, { 'Content-Type': 'text/html' });
+        // sending page data
+        res.end(data);
+      }
+    );
+  }
+});
 
 // /* [OLD] ADD ENTRY */
 // app.get('/add/', function(req, res) {

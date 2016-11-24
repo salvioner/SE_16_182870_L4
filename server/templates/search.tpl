@@ -42,6 +42,9 @@
         </fieldset>
         <fieldset>
           <div class="input-box" id="info-input-box">
+            <h4 style="color:red">
+              (:message:)
+            </h4>
             <legend class="instructions">
               Employee informations - fill the form below if you want to add a new entry in the database. Please notice that if the ID field is left empty, the system will assign the next available ID. Else, <span class="bold">the selected ID will be overwritten</span>
             </legend>
@@ -50,7 +53,7 @@
             </label>
             <input class="input-text-field" id="name-input" name="name" type="text" placeholder="Jeremy" value=(:name:)>
             <label>
-              Cognome
+              Surname
             </label>
             <input class="input-text-field" id="surname-input" name="surname" type="text" placeholder="Johnson" value=(:surname:)>
             <br>
