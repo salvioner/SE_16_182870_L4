@@ -23,6 +23,7 @@
     <br>
     <button id="show-form" onmousedown="showForm()">New Form</button>
     <hr>
+    <br>
     <!-- form -->
     <div id="form" (:hidden:)>
       <form action="" method="">
